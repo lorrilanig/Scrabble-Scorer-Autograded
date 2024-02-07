@@ -65,20 +65,11 @@ let vowelBonusScorer = (word) => {
 
 let scrabbleScorer;
 //objects
-simple = {
-  
-   scorerFunction: simpleScorer
-};
-vowel = {
-  
-   scorerFunction: vowelBonusScorer
-};
-scrabble = {
-  
-   scorerFunction: oldScrabbleScorer
-};
+simple = {scorerFunction: simpleScorer}
+vowel = {scorerFunction: vowelBonusScorer};
+scrabble = {scorerFunction : scrabbleScorer};
 
-const scoringAlgorithms = [ simple , vowel , scrabble ];
+const scoringAlgorithms = [simple, vowel, scrabble];
 
 function scorerPrompt() { 
    let scorer = input.question(`Which scoring algorithm would you like to use? \n 
@@ -87,11 +78,11 @@ function scorerPrompt() {
    2 - Scrabble: Uses scrabble point system')\n
    Enter 0, 1, or 2:`);
    if (scorer === 0) {
-     return scoringAlgorithms[0].scorerFunction;
+     return scoringAlgorithms[0].scorerFunction();
    } else if (scorer === 1) {
-      return scoringAlgorithms[1].scorerFunction;
+      return scoringAlgorithms[1].scorerFunction();
    } else if (scorer === 2) {
-     return scoringAlgorithms[2].scorerFunction;
+     return scoringAlgorithms[2].scorerFunction();
    }
 };
 
