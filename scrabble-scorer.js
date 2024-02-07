@@ -34,18 +34,66 @@ function oldScrabbleScorer(word) {
 
 function initialPrompt() {
    let word = input.question("Let's play some scrabble! Enter a word:");
-   console.log(oldScrabbleScorer(word));
+   return word;
 };
 
-let simpleScorer;
+let simpleScorer = (word) => {
+   let points = word.length; 
+   // let letterPoints = `Points for '${word}': ${points}\n`;
+   // return letterPoints;
+   return points;
+};
+//not returning 3 pts for vowels
+let vowelBonusScorer = (word) => {
+   let finalScore = 0;
+   word = word.split('');
+   let vowels = ['a','e','i','o','u'];
+   let vowelPoints = 3;
+   let letterPoints =  1;
+   word.forEach(letter => {
+      if (vowels.includes(letter)) {
+         finalScore += vowelPoints;
+      } else {
+         finalScore += letterPoints;
+      }
+   })
+   return finalScore;
+}
+   // let letterPoints = `Points for '${word}': ${points}\n`;
+   // return letterPoints; 
 
-let vowelBonusScorer;
 
 let scrabbleScorer;
+//objects
+simple = {
+  
+   scorerFunction: simpleScorer
+};
+vowel = {
+  
+   scorerFunction: vowelBonusScorer
+};
+scrabble = {
+  
+   scorerFunction: oldScrabbleScorer
+};
 
-const scoringAlgorithms = [];
+const scoringAlgorithms = [ simple , vowel , scrabble ];
 
-function scorerPrompt() {}
+function scorerPrompt() { 
+   let scorer = input.question(`Which scoring algorithm would you like to use? \n 
+   0 - Simple: One point per character\n
+   1 - Vowel Bonus: Vowels are worth 3 points\n
+   2 - Scrabble: Uses scrabble point system')\n
+   Enter 0, 1, or 2:`);
+   if (scorer === 0) {
+     return scoringAlgorithms[0].scorerFunction;
+   } else if (scorer === 1) {
+      return scoringAlgorithms[1].scorerFunction;
+   } else if (scorer === 2) {
+     return scoringAlgorithms[2].scorerFunction;
+   }
+};
 
 function transform() {};
 
@@ -53,6 +101,7 @@ let newPointStructure;
 
 function runProgram() {
    initialPrompt();
+   scorerPrompt();
    
 }
 
