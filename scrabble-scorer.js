@@ -62,8 +62,18 @@ let vowelBonusScorer = (word) => {
    // let letterPoints = `Points for '${word}': ${points}\n`;
    // return letterPoints; 
 
+   let newPointStructure = transform(oldPointStructure);
+   
+   let scrabbleScorer = (word) => {
+      let finalScore = 0;
+      for (letter in newPointStructure) {
+         for (let i = 0; i < word.length; i++){
+     if (word[i].includes(letter)) {
+        finalScore += newPointStructure[letter];
+     }}
+}
+return finalScore;}
 
-let scrabbleScorer;
 //objects
 simple = {scorerFunction: simpleScorer}
 vowel = {scorerFunction: vowelBonusScorer};
@@ -86,15 +96,24 @@ function scorerPrompt() {
    }
 };
 
-function transform() {};
+function transform(object) {
+   let transformObject = {};
+   for (key in object) {
+      keyArray = object[key]; 
+         for (let i = 0; i < keyArray.length; i++) {
+            transformObject[keyArray[i].toLowerCase()] = Number(key);
+         }
+   }
 
-let newPointStructure;
+   return transformObject; 
 
+};
 function runProgram() {
    initialPrompt();
    scorerPrompt();
    
 }
+
 
 // Don't write any code below this line //
 // And don't change these or your program will not run as expected //
@@ -109,4 +128,4 @@ module.exports = {
    newPointStructure: newPointStructure,
 	runProgram: runProgram,
 	scorerPrompt: scorerPrompt
-};
+}
